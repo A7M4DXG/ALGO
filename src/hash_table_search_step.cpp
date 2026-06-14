@@ -1,20 +1,29 @@
-// *********************************************************
+// ******************************************************************************************************************************
 // Program: hash_table_search_step.cpp
 // Course: CCP6214 Algorithm Design and Analysis
-// Lecture Class: TC4L
-// Tutorial Class: T13L
+// Lecture Class: TC1L
+// Tutorial Class: TT3L
 // Trimester: 2610
-// Member_1: ID | NAME | EMAIL | PHONE
-// Member_2: ID | NAME | EMAIL | PHONE
-// Member_3: ID | NAME | EMAIL | PHONE
+// Member_1: 241UC240H5 | AHMED SIDDIG ADAM MOHAMED | ahmed.siddig.adam@student.mmu.edu.my | +60148514100
+// Member_2: 241UC240QK | AL-MAWERI, EBRAHIM MOHAMMED ABDULLAH | ALMAWERI.EBRAHIM.MOHAMMED@student.mmu.edu.my | +601112758063
+// Member_3: 251UC25085 | MOHAMMED, MOHAMMED ABDULAZIZ | MOHAMMED.MOHAMMED.ABDULAZ@student.mmu.edu.my | +60147386355
 // Member_4: ID | NAME | EMAIL | PHONE
-// *********************************************************
+// ******************************************************************************************************************************
 // Task Distribution
-// Member_1:
-// Member_2:
-// Member_3:
-// Member_4:
-// *********************************************************
+// Member_1: Project Leader, System Architecture,
+//            Complete Algorithm Implementation,
+//            Code Integration, Testing and Debugging.
+//
+// Member_2: Report Writing, Documentation,
+//            Charts, Screenshots, References,
+//            Final Report Preparation.
+//
+// Member_3: Experiment Execution,
+//            Output Verification,
+//            Results Collection and Validation.
+//
+// Member_4: N/A
+// // ******************************************************************************************************************************
 
 #include "Record.h"
 
@@ -41,20 +50,20 @@ struct HashSlot
 };
 
 size_t hashFunction(long long key, size_t capacity);
-bool insert(std::vector<HashSlot>& table, const Record& record);
+bool insert(std::vector<HashSlot> &table, const Record &record);
 bool searchWithSteps(
-    const std::vector<HashSlot>& table,
+    const std::vector<HashSlot> &table,
     long long target,
-    const std::filesystem::path& outputPath);
-std::vector<Record> loadDataset(const std::string& filename);
-bool runHashTableSearchStepDemo(const std::string& inputFilename);
-bool parseRecordLine(const std::string& line, Record& record);
-bool isValidTextField(const std::string& text);
-std::filesystem::path resolveInputPath(const std::string& inputFilename);
-std::filesystem::path buildOutputPath(const std::string& inputFilename, long long target);
-long long resolveFoundTarget(const std::vector<Record>& records);
+    const std::filesystem::path &outputPath);
+std::vector<Record> loadDataset(const std::string &filename);
+bool runHashTableSearchStepDemo(const std::string &inputFilename);
+bool parseRecordLine(const std::string &line, Record &record);
+bool isValidTextField(const std::string &text);
+std::filesystem::path resolveInputPath(const std::string &inputFilename);
+std::filesystem::path buildOutputPath(const std::string &inputFilename, long long target);
+long long resolveFoundTarget(const std::vector<Record> &records);
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     if (argc != 2)
     {
@@ -81,7 +90,7 @@ size_t hashFunction(long long key, size_t capacity)
     return static_cast<size_t>(positiveKey) % capacity;
 }
 
-bool insert(std::vector<HashSlot>& table, const Record& record)
+bool insert(std::vector<HashSlot> &table, const Record &record)
 {
     const size_t capacity = table.size();
     const size_t startIndex = hashFunction(record.id, capacity);
@@ -102,15 +111,15 @@ bool insert(std::vector<HashSlot>& table, const Record& record)
 }
 
 bool searchWithSteps(
-    const std::vector<HashSlot>& table,
+    const std::vector<HashSlot> &table,
     long long target,
-    const std::filesystem::path& outputPath)
+    const std::filesystem::path &outputPath)
 {
     try
     {
         std::filesystem::create_directories(outputPath.parent_path());
     }
-    catch (const std::filesystem::filesystem_error& error)
+    catch (const std::filesystem::filesystem_error &error)
     {
         std::cerr << "Error: could not create output directory: "
                   << error.what() << std::endl;
@@ -158,7 +167,7 @@ bool searchWithSteps(
     return static_cast<bool>(outputFile);
 }
 
-std::vector<Record> loadDataset(const std::string& filename)
+std::vector<Record> loadDataset(const std::string &filename)
 {
     std::vector<Record> records;
     const std::filesystem::path inputPath = resolveInputPath(filename);
@@ -202,7 +211,7 @@ std::vector<Record> loadDataset(const std::string& filename)
     return records;
 }
 
-bool runHashTableSearchStepDemo(const std::string& inputFilename)
+bool runHashTableSearchStepDemo(const std::string &inputFilename)
 {
     const std::vector<Record> records = loadDataset(inputFilename);
 
@@ -214,7 +223,7 @@ bool runHashTableSearchStepDemo(const std::string& inputFilename)
 
     std::vector<HashSlot> table(records.size() * 2U);
 
-    for (const Record& record : records)
+    for (const Record &record : records)
     {
         if (!insert(table, record))
         {
@@ -245,7 +254,7 @@ bool runHashTableSearchStepDemo(const std::string& inputFilename)
     return true;
 }
 
-bool parseRecordLine(const std::string& line, Record& record)
+bool parseRecordLine(const std::string &line, Record &record)
 {
     std::stringstream parser(line);
     std::string idField;
@@ -284,11 +293,11 @@ bool parseRecordLine(const std::string& line, Record& record)
 
         record = Record(id, textField);
     }
-    catch (const std::invalid_argument&)
+    catch (const std::invalid_argument &)
     {
         return false;
     }
-    catch (const std::out_of_range&)
+    catch (const std::out_of_range &)
     {
         return false;
     }
@@ -296,7 +305,7 @@ bool parseRecordLine(const std::string& line, Record& record)
     return true;
 }
 
-bool isValidTextField(const std::string& text)
+bool isValidTextField(const std::string &text)
 {
     if (text.length() != 5)
     {
@@ -314,7 +323,7 @@ bool isValidTextField(const std::string& text)
     return true;
 }
 
-std::filesystem::path resolveInputPath(const std::string& inputFilename)
+std::filesystem::path resolveInputPath(const std::string &inputFilename)
 {
     const std::filesystem::path directPath(inputFilename);
 
@@ -334,7 +343,7 @@ std::filesystem::path resolveInputPath(const std::string& inputFilename)
     return directPath;
 }
 
-std::filesystem::path buildOutputPath(const std::string& inputFilename, long long target)
+std::filesystem::path buildOutputPath(const std::string &inputFilename, long long target)
 {
     const std::filesystem::path inputPath(inputFilename);
     const std::string outputFilename =
@@ -344,7 +353,7 @@ std::filesystem::path buildOutputPath(const std::string& inputFilename, long lon
     return std::filesystem::path("outputs") / "search" / outputFilename;
 }
 
-long long resolveFoundTarget(const std::vector<Record>& records)
+long long resolveFoundTarget(const std::vector<Record> &records)
 {
     if (FOUND_TARGET == -1)
     {

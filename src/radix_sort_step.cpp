@@ -1,20 +1,29 @@
-// *********************************************************
+// ******************************************************************************************************************************
 // Program: radix_sort_step.cpp
 // Course: CCP6214 Algorithm Design and Analysis
-// Lecture Class: TC4L
-// Tutorial Class: T13L
+// Lecture Class: TC1L
+// Tutorial Class: TT3L
 // Trimester: 2610
-// Member_1: ID | NAME | EMAIL | PHONE
-// Member_2: ID | NAME | EMAIL | PHONE
-// Member_3: ID | NAME | EMAIL | PHONE
+// Member_1: 241UC240H5 | AHMED SIDDIG ADAM MOHAMED | ahmed.siddig.adam@student.mmu.edu.my | +60148514100
+// Member_2: 241UC240QK | AL-MAWERI, EBRAHIM MOHAMMED ABDULLAH | ALMAWERI.EBRAHIM.MOHAMMED@student.mmu.edu.my | +601112758063
+// Member_3: 251UC25085 | MOHAMMED, MOHAMMED ABDULAZIZ | MOHAMMED.MOHAMMED.ABDULAZ@student.mmu.edu.my | +60147386355
 // Member_4: ID | NAME | EMAIL | PHONE
-// *********************************************************
+// ******************************************************************************************************************************
 // Task Distribution
-// Member_1:
-// Member_2:
-// Member_3:
-// Member_4:
-// *********************************************************
+// Member_1: Project Leader, System Architecture,
+//            Complete Algorithm Implementation,
+//            Code Integration, Testing and Debugging.
+//
+// Member_2: Report Writing, Documentation,
+//            Charts, Screenshots, References,
+//            Final Report Preparation.
+//
+// Member_3: Experiment Execution,
+//            Output Verification,
+//            Results Collection and Validation.
+//
+// Member_4: N/A
+// ******************************************************************************************************************************
 
 #include "Record.h"
 
@@ -31,16 +40,16 @@ const int START_ROW = 1;
 const int END_ROW = 7;
 const int TOTAL_ID_DIGITS = 10;
 
-std::vector<Record> loadRange(const std::string& filename, int startRow, int endRow);
-std::string formatRecords(const std::vector<Record>& records, const std::string& label);
-void countingSortByDigit(std::vector<Record>& records, long long exp);
-bool writeStep(std::ofstream& outputFile, const std::vector<Record>& records, const std::string& label);
-bool runRadixSortStepDemo(const std::string& inputFilename);
-bool parseRecordLine(const std::string& line, Record& record);
-bool isValidTextField(const std::string& text);
-std::filesystem::path buildOutputPath(const std::string& inputFilename, int startRow, int endRow);
+std::vector<Record> loadRange(const std::string &filename, int startRow, int endRow);
+std::string formatRecords(const std::vector<Record> &records, const std::string &label);
+void countingSortByDigit(std::vector<Record> &records, long long exp);
+bool writeStep(std::ofstream &outputFile, const std::vector<Record> &records, const std::string &label);
+bool runRadixSortStepDemo(const std::string &inputFilename);
+bool parseRecordLine(const std::string &line, Record &record);
+bool isValidTextField(const std::string &text);
+std::filesystem::path buildOutputPath(const std::string &inputFilename, int startRow, int endRow);
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     if (argc != 2)
     {
@@ -56,7 +65,7 @@ int main(int argc, char* argv[])
     return 0;
 }
 
-std::vector<Record> loadRange(const std::string& filename, int startRow, int endRow)
+std::vector<Record> loadRange(const std::string &filename, int startRow, int endRow)
 {
     std::vector<Record> records;
 
@@ -105,7 +114,7 @@ std::vector<Record> loadRange(const std::string& filename, int startRow, int end
     return records;
 }
 
-std::string formatRecords(const std::vector<Record>& records, const std::string& label)
+std::string formatRecords(const std::vector<Record> &records, const std::string &label)
 {
     std::ostringstream output;
     output << "[";
@@ -124,12 +133,12 @@ std::string formatRecords(const std::vector<Record>& records, const std::string&
     return output.str();
 }
 
-void countingSortByDigit(std::vector<Record>& records, long long exp)
+void countingSortByDigit(std::vector<Record> &records, long long exp)
 {
     std::array<int, 10> count = {0};
     std::vector<Record> output(records.size());
 
-    for (const Record& record : records)
+    for (const Record &record : records)
     {
         const int digit = static_cast<int>((record.id / exp) % 10);
         ++count[digit];
@@ -151,13 +160,13 @@ void countingSortByDigit(std::vector<Record>& records, long long exp)
     records = output;
 }
 
-bool writeStep(std::ofstream& outputFile, const std::vector<Record>& records, const std::string& label)
+bool writeStep(std::ofstream &outputFile, const std::vector<Record> &records, const std::string &label)
 {
     outputFile << formatRecords(records, label) << '\n';
     return static_cast<bool>(outputFile);
 }
 
-bool runRadixSortStepDemo(const std::string& inputFilename)
+bool runRadixSortStepDemo(const std::string &inputFilename)
 {
     std::vector<Record> records = loadRange(inputFilename, START_ROW, END_ROW);
 
@@ -173,7 +182,7 @@ bool runRadixSortStepDemo(const std::string& inputFilename)
     {
         std::filesystem::create_directories(outputPath.parent_path());
     }
-    catch (const std::filesystem::filesystem_error& error)
+    catch (const std::filesystem::filesystem_error &error)
     {
         std::cerr << "Error: could not create output directory: "
                   << error.what() << std::endl;
@@ -214,7 +223,7 @@ bool runRadixSortStepDemo(const std::string& inputFilename)
     return true;
 }
 
-bool parseRecordLine(const std::string& line, Record& record)
+bool parseRecordLine(const std::string &line, Record &record)
 {
     std::stringstream parser(line);
     std::string idField;
@@ -253,11 +262,11 @@ bool parseRecordLine(const std::string& line, Record& record)
 
         record = Record(id, textField);
     }
-    catch (const std::invalid_argument&)
+    catch (const std::invalid_argument &)
     {
         return false;
     }
-    catch (const std::out_of_range&)
+    catch (const std::out_of_range &)
     {
         return false;
     }
@@ -265,7 +274,7 @@ bool parseRecordLine(const std::string& line, Record& record)
     return true;
 }
 
-bool isValidTextField(const std::string& text)
+bool isValidTextField(const std::string &text)
 {
     if (text.length() != 5)
     {
@@ -283,7 +292,7 @@ bool isValidTextField(const std::string& text)
     return true;
 }
 
-std::filesystem::path buildOutputPath(const std::string& inputFilename, int startRow, int endRow)
+std::filesystem::path buildOutputPath(const std::string &inputFilename, int startRow, int endRow)
 {
     const std::filesystem::path inputPath(inputFilename);
     const std::string outputFilename =

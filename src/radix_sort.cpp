@@ -1,20 +1,29 @@
-// *********************************************************
+// ******************************************************************************************************************************
 // Program: radix_sort.cpp
 // Course: CCP6214 Algorithm Design and Analysis
-// Lecture Class: TC4L
-// Tutorial Class: T13L
+// Lecture Class: TC1L
+// Tutorial Class: TT3L
 // Trimester: 2610
-// Member_1: ID | NAME | EMAIL | PHONE
-// Member_2: ID | NAME | EMAIL | PHONE
-// Member_3: ID | NAME | EMAIL | PHONE
+// Member_1: 241UC240H5 | AHMED SIDDIG ADAM MOHAMED | ahmed.siddig.adam@student.mmu.edu.my | +60148514100
+// Member_2: 241UC240QK | AL-MAWERI, EBRAHIM MOHAMMED ABDULLAH | ALMAWERI.EBRAHIM.MOHAMMED@student.mmu.edu.my | +601112758063
+// Member_3: 251UC25085 | MOHAMMED, MOHAMMED ABDULAZIZ | MOHAMMED.MOHAMMED.ABDULAZ@student.mmu.edu.my | +60147386355
 // Member_4: ID | NAME | EMAIL | PHONE
-// *********************************************************
+// ******************************************************************************************************************************
 // Task Distribution
-// Member_1:
-// Member_2:
-// Member_3:
-// Member_4:
-// *********************************************************
+// Member_1: Project Leader, System Architecture,
+//            Complete Algorithm Implementation,
+//            Code Integration, Testing and Debugging.
+//
+// Member_2: Report Writing, Documentation,
+//            Charts, Screenshots, References,
+//            Final Report Preparation.
+//
+// Member_3: Experiment Execution,
+//            Output Verification,
+//            Results Collection and Validation.
+//
+// Member_4: N/A
+// ******************************************************************************************************************************
 
 #include "CSVReader.h"
 #include "CSVWriter.h"
@@ -28,15 +37,15 @@
 #include <string>
 #include <vector>
 
-std::filesystem::path resolveInputPath(const std::string& inputFilename);
-std::filesystem::path buildSortedOutputPath(const std::string& inputFilename);
-std::filesystem::path buildRuntimeOutputPath(const std::string& inputFilename);
-void countingSortByDigit(std::vector<Record>& records, long long exp);
-void radixSort(std::vector<Record>& records);
-bool writeRuntimeFile(const std::filesystem::path& outputPath, double milliseconds, double seconds);
-bool runRadixSortProgram(const std::string& inputFilename);
+std::filesystem::path resolveInputPath(const std::string &inputFilename);
+std::filesystem::path buildSortedOutputPath(const std::string &inputFilename);
+std::filesystem::path buildRuntimeOutputPath(const std::string &inputFilename);
+void countingSortByDigit(std::vector<Record> &records, long long exp);
+void radixSort(std::vector<Record> &records);
+bool writeRuntimeFile(const std::filesystem::path &outputPath, double milliseconds, double seconds);
+bool runRadixSortProgram(const std::string &inputFilename);
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     if (argc != 2)
     {
@@ -52,7 +61,7 @@ int main(int argc, char* argv[])
     return 0;
 }
 
-std::filesystem::path resolveInputPath(const std::string& inputFilename)
+std::filesystem::path resolveInputPath(const std::string &inputFilename)
 {
     const std::filesystem::path directPath(inputFilename);
 
@@ -72,7 +81,7 @@ std::filesystem::path resolveInputPath(const std::string& inputFilename)
     return directPath;
 }
 
-std::filesystem::path buildSortedOutputPath(const std::string& inputFilename)
+std::filesystem::path buildSortedOutputPath(const std::string &inputFilename)
 {
     const std::filesystem::path inputPath(inputFilename);
     const std::string outputFilename = "radix_sorted_" + inputPath.filename().string();
@@ -80,7 +89,7 @@ std::filesystem::path buildSortedOutputPath(const std::string& inputFilename)
     return std::filesystem::path("outputs") / "sorted" / outputFilename;
 }
 
-std::filesystem::path buildRuntimeOutputPath(const std::string& inputFilename)
+std::filesystem::path buildRuntimeOutputPath(const std::string &inputFilename)
 {
     const std::filesystem::path inputPath(inputFilename);
     const std::string datasetName = inputPath.stem().string();
@@ -92,12 +101,12 @@ std::filesystem::path buildRuntimeOutputPath(const std::string& inputFilename)
            ("radix_sort_runtime_" + sizePart + ".txt");
 }
 
-void countingSortByDigit(std::vector<Record>& records, long long exp)
+void countingSortByDigit(std::vector<Record> &records, long long exp)
 {
     std::array<size_t, 10> count = {0};
     std::vector<Record> output(records.size());
 
-    for (const Record& record : records)
+    for (const Record &record : records)
     {
         const size_t digit = static_cast<size_t>((record.id / exp) % 10);
         ++count[digit];
@@ -110,7 +119,7 @@ void countingSortByDigit(std::vector<Record>& records, long long exp)
 
     for (size_t i = records.size(); i > 0; --i)
     {
-        const Record& record = records[i - 1];
+        const Record &record = records[i - 1];
         const size_t digit = static_cast<size_t>((record.id / exp) % 10);
         output[count[digit] - 1] = record;
         --count[digit];
@@ -119,7 +128,7 @@ void countingSortByDigit(std::vector<Record>& records, long long exp)
     records = output;
 }
 
-void radixSort(std::vector<Record>& records)
+void radixSort(std::vector<Record> &records)
 {
     if (records.empty())
     {
@@ -127,7 +136,7 @@ void radixSort(std::vector<Record>& records)
     }
 
     long long maxId = records.front().id;
-    for (const Record& record : records)
+    for (const Record &record : records)
     {
         if (record.id > maxId)
         {
@@ -141,7 +150,7 @@ void radixSort(std::vector<Record>& records)
     }
 }
 
-bool writeRuntimeFile(const std::filesystem::path& outputPath, double milliseconds, double seconds)
+bool writeRuntimeFile(const std::filesystem::path &outputPath, double milliseconds, double seconds)
 {
     std::ofstream outputFile(outputPath);
 
@@ -159,7 +168,7 @@ bool writeRuntimeFile(const std::filesystem::path& outputPath, double millisecon
     return static_cast<bool>(outputFile);
 }
 
-bool runRadixSortProgram(const std::string& inputFilename)
+bool runRadixSortProgram(const std::string &inputFilename)
 {
     const std::filesystem::path inputPath = resolveInputPath(inputFilename);
     std::vector<Record> records = CSVReader::loadCSV(inputPath.string());

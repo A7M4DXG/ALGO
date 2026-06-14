@@ -1,20 +1,30 @@
-// *********************************************************
+// ******************************************************************************************************************************
 // Program: dataset_generator.cpp
 // Course: CCP6214 Algorithm Design and Analysis
-// Lecture Class: TC4L
-// Tutorial Class: T13L
+// Lecture Class: TC1L
+// Tutorial Class: TT3L
 // Trimester: 2610
-// Member_1: ID | NAME | EMAIL | PHONE
-// Member_2: ID | NAME | EMAIL | PHONE
-// Member_3: ID | NAME | EMAIL | PHONE
+// Member_1: 241UC240H5 | AHMED SIDDIG ADAM MOHAMED | ahmed.siddig.adam@student.mmu.edu.my | +60148514100
+// Member_2: 241UC240QK | AL-MAWERI, EBRAHIM MOHAMMED ABDULLAH | ALMAWERI.EBRAHIM.MOHAMMED@student.mmu.edu.my | +601112758063
+// Member_3: 251UC25085 | MOHAMMED, MOHAMMED ABDULAZIZ | MOHAMMED.MOHAMMED.ABDULAZ@student.mmu.edu.my | +60147386355
 // Member_4: ID | NAME | EMAIL | PHONE
-// *********************************************************
+// ******************************************************************************************************************************
 // Task Distribution
-// Member_1:
-// Member_2:
-// Member_3:
-// Member_4:
-// *********************************************************
+// Member_1: Project Leader, System Architecture,
+//            Complete Algorithm Implementation,
+//            Code Integration, Testing and Debugging.
+//
+// Member_2: Report Writing, Documentation,
+//            Charts, Screenshots, References,
+//            Final Report Preparation.
+//
+// Member_3: Experiment Execution,
+//            Output Verification,
+//            Results Collection and Validation.
+//
+// Member_4: N/A
+// ******************************************************************************************************************************
+
 
 #include <filesystem>
 #include <fstream>
@@ -33,16 +43,16 @@ namespace
     const size_t LARGE_DATASET_PROGRESS_THRESHOLD = 100000;
     const size_t PROGRESS_INTERVAL = 100000;
 
-    bool parseDatasetSize(const std::string& value, size_t& size);
-    std::string generateRandomText(std::mt19937_64& generator);
+    bool parseDatasetSize(const std::string &value, size_t &size);
+    std::string generateRandomText(std::mt19937_64 &generator);
     long long generateUniqueId(
-        std::mt19937_64& generator,
-        std::unordered_set<long long>& usedIds);
+        std::mt19937_64 &generator,
+        std::unordered_set<long long> &usedIds);
     bool generateDataset(size_t size);
     void printProgress(size_t generated, size_t total);
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     if (argc != 2)
     {
@@ -73,7 +83,7 @@ int main(int argc, char* argv[])
 
 namespace
 {
-    bool parseDatasetSize(const std::string& value, size_t& size)
+    bool parseDatasetSize(const std::string &value, size_t &size)
     {
         try
         {
@@ -88,17 +98,17 @@ namespace
             size = static_cast<size_t>(parsedValue);
             return static_cast<unsigned long long>(size) == parsedValue;
         }
-        catch (const std::invalid_argument&)
+        catch (const std::invalid_argument &)
         {
             return false;
         }
-        catch (const std::out_of_range&)
+        catch (const std::out_of_range &)
         {
             return false;
         }
     }
 
-    std::string generateRandomText(std::mt19937_64& generator)
+    std::string generateRandomText(std::mt19937_64 &generator)
     {
         static const char LOWERCASE_LETTERS[] = "abcdefghijklmnopqrstuvwxyz";
         std::uniform_int_distribution<int> letterDistribution(0, 25);
@@ -115,8 +125,8 @@ namespace
     }
 
     long long generateUniqueId(
-        std::mt19937_64& generator,
-        std::unordered_set<long long>& usedIds)
+        std::mt19937_64 &generator,
+        std::unordered_set<long long> &usedIds)
     {
         std::uniform_int_distribution<long long> idDistribution(MIN_ID, MAX_ID);
 
@@ -141,7 +151,7 @@ namespace
         {
             std::filesystem::create_directories(outputDirectory);
         }
-        catch (const std::filesystem::filesystem_error& error)
+        catch (const std::filesystem::filesystem_error &error)
         {
             std::cerr << "Error: could not create datasets directory: "
                       << error.what() << std::endl;
@@ -156,8 +166,7 @@ namespace
             return false;
         }
 
-        std::random_device randomDevice;
-        std::mt19937_64 generator(randomDevice());
+        std::mt19937_64 generator(2411324085ULL);
         std::unordered_set<long long> usedIds;
         usedIds.reserve(size);
 

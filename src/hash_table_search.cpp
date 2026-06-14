@@ -1,20 +1,29 @@
-// *********************************************************
+// ******************************************************************************************************************************
 // Program: hash_table_search.cpp
 // Course: CCP6214 Algorithm Design and Analysis
-// Lecture Class: TC4L
-// Tutorial Class: T13L
+// Lecture Class: TC1L
+// Tutorial Class: TT3L
 // Trimester: 2610
-// Member_1: ID | NAME | EMAIL | PHONE
-// Member_2: ID | NAME | EMAIL | PHONE
-// Member_3: ID | NAME | EMAIL | PHONE
+// Member_1: 241UC240H5 | AHMED SIDDIG ADAM MOHAMED | ahmed.siddig.adam@student.mmu.edu.my | +60148514100
+// Member_2: 241UC240QK | AL-MAWERI, EBRAHIM MOHAMMED ABDULLAH | ALMAWERI.EBRAHIM.MOHAMMED@student.mmu.edu.my | +601112758063
+// Member_3: 251UC25085 | MOHAMMED, MOHAMMED ABDULAZIZ | MOHAMMED.MOHAMMED.ABDULAZ@student.mmu.edu.my | +60147386355
 // Member_4: ID | NAME | EMAIL | PHONE
-// *********************************************************
+// ******************************************************************************************************************************
 // Task Distribution
-// Member_1:
-// Member_2:
-// Member_3:
-// Member_4:
-// *********************************************************
+// Member_1: Project Leader, System Architecture,
+//            Complete Algorithm Implementation,
+//            Code Integration, Testing and Debugging.
+//
+// Member_2: Report Writing, Documentation,
+//            Charts, Screenshots, References,
+//            Final Report Preparation.
+//
+// Member_3: Experiment Execution,
+//            Output Verification,
+//            Results Collection and Validation.
+//
+// Member_4: N/A
+// ******************************************************************************************************************************
 
 #include "CSVReader.h"
 #include "Record.h"
@@ -45,21 +54,21 @@ struct TimingResults
     double worstSeconds;
 };
 
-std::filesystem::path resolveInputPath(const std::string& inputFilename);
-std::filesystem::path buildOutputPath(const std::string& inputFilename);
+std::filesystem::path resolveInputPath(const std::string &inputFilename);
+std::filesystem::path buildOutputPath(const std::string &inputFilename);
 size_t hashFunction(long long key, size_t capacity);
-bool insert(std::vector<HashSlot>& table, const Record& record);
-bool search(const std::vector<HashSlot>& table, long long key);
-long long findBestCaseKey(const std::vector<HashSlot>& table);
-long long findWorstCaseKey(const std::vector<HashSlot>& table);
-std::vector<long long> buildAverageCaseKeys(const std::vector<Record>& records, size_t searchCount);
-double measureBestCase(const std::vector<HashSlot>& table, long long key, size_t searchCount);
-double measureAverageCase(const std::vector<HashSlot>& table, const std::vector<long long>& keys);
-double measureWorstCase(const std::vector<HashSlot>& table, long long key, size_t searchCount);
-bool writeResults(const std::filesystem::path& outputPath, const TimingResults& results);
-bool runHashTableSearchProgram(const std::string& inputFilename);
+bool insert(std::vector<HashSlot> &table, const Record &record);
+bool search(const std::vector<HashSlot> &table, long long key);
+long long findBestCaseKey(const std::vector<HashSlot> &table);
+long long findWorstCaseKey(const std::vector<HashSlot> &table);
+std::vector<long long> buildAverageCaseKeys(const std::vector<Record> &records, size_t searchCount);
+double measureBestCase(const std::vector<HashSlot> &table, long long key, size_t searchCount);
+double measureAverageCase(const std::vector<HashSlot> &table, const std::vector<long long> &keys);
+double measureWorstCase(const std::vector<HashSlot> &table, long long key, size_t searchCount);
+bool writeResults(const std::filesystem::path &outputPath, const TimingResults &results);
+bool runHashTableSearchProgram(const std::string &inputFilename);
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     if (argc != 2)
     {
@@ -75,7 +84,7 @@ int main(int argc, char* argv[])
     return 0;
 }
 
-std::filesystem::path resolveInputPath(const std::string& inputFilename)
+std::filesystem::path resolveInputPath(const std::string &inputFilename)
 {
     const std::filesystem::path directPath(inputFilename);
 
@@ -95,7 +104,7 @@ std::filesystem::path resolveInputPath(const std::string& inputFilename)
     return directPath;
 }
 
-std::filesystem::path buildOutputPath(const std::string& inputFilename)
+std::filesystem::path buildOutputPath(const std::string &inputFilename)
 {
     const std::filesystem::path inputPath(inputFilename);
     return std::filesystem::path("outputs") / "search" /
@@ -120,7 +129,7 @@ size_t hashFunction(long long key, size_t capacity)
     return static_cast<size_t>(index);
 }
 
-bool insert(std::vector<HashSlot>& table, const Record& record)
+bool insert(std::vector<HashSlot> &table, const Record &record)
 {
     const size_t capacity = table.size();
     const size_t startIndex = hashFunction(record.id, capacity);
@@ -140,7 +149,7 @@ bool insert(std::vector<HashSlot>& table, const Record& record)
     return false;
 }
 
-bool search(const std::vector<HashSlot>& table, long long key)
+bool search(const std::vector<HashSlot> &table, long long key)
 {
     const size_t capacity = table.size();
     const size_t startIndex = hashFunction(key, capacity);
@@ -163,7 +172,7 @@ bool search(const std::vector<HashSlot>& table, long long key)
     return false;
 }
 
-long long findBestCaseKey(const std::vector<HashSlot>& table)
+long long findBestCaseKey(const std::vector<HashSlot> &table)
 {
     for (size_t index = 0U; index < table.size(); ++index)
     {
@@ -173,7 +182,7 @@ long long findBestCaseKey(const std::vector<HashSlot>& table)
         }
     }
 
-    for (const HashSlot& slot : table)
+    for (const HashSlot &slot : table)
     {
         if (slot.occupied)
         {
@@ -184,7 +193,7 @@ long long findBestCaseKey(const std::vector<HashSlot>& table)
     return -1LL;
 }
 
-long long findWorstCaseKey(const std::vector<HashSlot>& table)
+long long findWorstCaseKey(const std::vector<HashSlot> &table)
 {
     size_t worstStartIndex = 0U;
     size_t worstProbeCount = 0U;
@@ -217,7 +226,7 @@ long long findWorstCaseKey(const std::vector<HashSlot>& table)
     return candidateKey;
 }
 
-std::vector<long long> buildAverageCaseKeys(const std::vector<Record>& records, size_t searchCount)
+std::vector<long long> buildAverageCaseKeys(const std::vector<Record> &records, size_t searchCount)
 {
     std::vector<long long> keys;
     keys.reserve(searchCount);
@@ -233,7 +242,7 @@ std::vector<long long> buildAverageCaseKeys(const std::vector<Record>& records, 
     return keys;
 }
 
-double measureBestCase(const std::vector<HashSlot>& table, long long key, size_t searchCount)
+double measureBestCase(const std::vector<HashSlot> &table, long long key, size_t searchCount)
 {
     size_t foundCount = 0U;
     Timer timer;
@@ -256,7 +265,7 @@ double measureBestCase(const std::vector<HashSlot>& table, long long key, size_t
     return timer.elapsedSeconds();
 }
 
-double measureAverageCase(const std::vector<HashSlot>& table, const std::vector<long long>& keys)
+double measureAverageCase(const std::vector<HashSlot> &table, const std::vector<long long> &keys)
 {
     size_t foundCount = 0U;
     Timer timer;
@@ -279,7 +288,7 @@ double measureAverageCase(const std::vector<HashSlot>& table, const std::vector<
     return timer.elapsedSeconds();
 }
 
-double measureWorstCase(const std::vector<HashSlot>& table, long long key, size_t searchCount)
+double measureWorstCase(const std::vector<HashSlot> &table, long long key, size_t searchCount)
 {
     size_t foundCount = 0U;
     Timer timer;
@@ -302,13 +311,13 @@ double measureWorstCase(const std::vector<HashSlot>& table, long long key, size_
     return timer.elapsedSeconds();
 }
 
-bool writeResults(const std::filesystem::path& outputPath, const TimingResults& results)
+bool writeResults(const std::filesystem::path &outputPath, const TimingResults &results)
 {
     try
     {
         std::filesystem::create_directories(outputPath.parent_path());
     }
-    catch (const std::filesystem::filesystem_error& error)
+    catch (const std::filesystem::filesystem_error &error)
     {
         std::cerr << "Error: could not create output directory: "
                   << error.what() << std::endl;
@@ -331,7 +340,7 @@ bool writeResults(const std::filesystem::path& outputPath, const TimingResults& 
     return static_cast<bool>(outputFile);
 }
 
-bool runHashTableSearchProgram(const std::string& inputFilename)
+bool runHashTableSearchProgram(const std::string &inputFilename)
 {
     const std::filesystem::path inputPath = resolveInputPath(inputFilename);
     const std::vector<Record> records = CSVReader::loadCSV(inputPath.string());
@@ -344,7 +353,7 @@ bool runHashTableSearchProgram(const std::string& inputFilename)
 
     std::vector<HashSlot> table(records.size() * 2U);
 
-    for (const Record& record : records)
+    for (const Record &record : records)
     {
         if (!insert(table, record))
         {
