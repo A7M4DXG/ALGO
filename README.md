@@ -14,45 +14,81 @@ No algorithm implementations are included yet. Source files contain placeholders
 
 ```text
 CCP6214_Algorithm_Assignment/
-|-- src/
-|   |-- dataset_generator.cpp
-|   |-- radix_sort_step.cpp
-|   |-- radix_sort.cpp
-|   |-- heap_sort_step.cpp
-|   |-- heap_sort.cpp
-|   |-- hash_table_search_step.cpp
-|   |-- hash_table_search.cpp
-|   |-- Record.cpp
-|   |-- CSVReader.cpp
-|   `-- CSVWriter.cpp
-|-- include/
-|   |-- Record.h
-|   |-- CSVReader.h
-|   |-- CSVWriter.h
-|   |-- Utilities.h
-|   |-- Timer.h
-|   |-- HashTable.h
-|   |-- RadixSort.h
-|   `-- HeapSort.h
-|-- datasets/
-|-- outputs/
-|   |-- radix_steps/
-|   |-- heap_steps/
-|   |-- sorted/
-|   `-- search/
-|-- experiments/
-|   |-- screenshots/
-|   |-- charts/
-|   `-- results/
-|-- documentation/
-|   |-- report.docx
-|   `-- references.txt
-|-- build/
-|-- README.md
-|-- Makefile
-`-- .gitignore
+│
+├── src/
+│   ├── dataset_generator.cpp
+│   ├── radix_sort_step.cpp
+│   ├── radix_sort.cpp
+│   ├── heap_sort_step.cpp
+│   ├── heap_sort.cpp
+│   ├── hash_table_search_step.cpp
+│   ├── hash_table_search.cpp
+│   ├── Record.cpp
+│   ├── CSVReader.cpp
+│   └── CSVWriter.cpp
+│
+├── include/
+│   ├── Record.h
+│   ├── CSVReader.h
+│   ├── CSVWriter.h
+│   ├── Utilities.h
+│   ├── Timer.h
+│   ├── HashTable.h
+│   ├── RadixSort.h
+│   └── HeapSort.h
+│
+├── datasets/
+│   ├── dataset_1000.csv
+│   ├── dataset_5000.csv
+│   ├── dataset_10000.csv
+│   ├── dataset_50000.csv
+│   ├── dataset_100000.csv
+│   ├── dataset_250000.csv
+│   ├── dataset_500000.csv
+│   ├── dataset_1000000.csv
+│   ├── dataset_2000000.csv
+│   └── dataset_5000000.csv
+│
+├── outputs/
+│   ├── radix_steps/
+│   │   └── dataset_n_radix_sorted_step_1_7.txt
+│   │
+│   ├── heap_steps/
+│   │   └── dataset_n_heap_sorted_step_1_7.txt
+│   │
+│   ├── sorted/
+│   │   ├── radix_sorted_dataset_n.csv
+│   │   ├── heap_sorted_dataset_n.csv
+│   │   ├── radix_sort_runtime_n.txt
+│   │   └── heap_sort_runtime_n.txt
+│   │
+│   └── search/
+│       ├── hash_table_search_dataset_n.txt
+│       └── dataset_n_hash_table_search_step_TARGET.txt
+│
+├── experiments/
+│   ├── screenshots/
+│   ├── charts/
+│   └── results/
+│
+├── documentation/
+│   ├── report.docx
+│   ├── empty report template.docx
+│   └── references.txt
+│
+├── build/
+│   ├── dataset_generator.exe
+│   ├── radix_sort_step.exe
+│   ├── radix_sort.exe
+│   ├── heap_sort_step.exe
+│   ├── heap_sort.exe
+│   ├── hash_table_search_step.exe
+│   └── hash_table_search.exe
+│
+├── README.md
+├── Makefile
+└── .gitignore
 ```
-
 ## Build Instructions
 
 Use the provided Makefile from the project root:
